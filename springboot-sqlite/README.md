@@ -1,19 +1,107 @@
-SpringBoot整合内嵌式sqlite数据库
-# 技术特性：  
-1、集成数据库（内嵌数据库：sqlite）  
-2、数据库查询（通过mybatis）  
-3、支持启动时自动加载数据库脚本  
+# 目标
+在SpringBoot中集成内存数据库Sqlite.
+# 为什么
+像H2、hsqldb、derby、sqlite这样的内存数据库，小巧可爱，做小型服务端演示程序，非常好用。最大特点就是不需要你另外安装一个数据库。
+# 操作步骤
+1. 修改pom.xml文件
+```
+<dependency>
+   <groupId>org.xerial</groupId>
+   <artifactId>sqlite-jdbc</artifactId>
+   <version>3.36.0.3</version>
+</dependency>
+```
+2. 修改项目配置文件application.yml
+```
+spring:
+  datasource:
+    username: hsp
+    password: 123456
+    url: jdbc:derby:blogDb;create=true
+    driver-class-name: org.apache.derby.jdbc.EmbeddedDriver
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+    initialization-mode: always
+    continue-on-error: true
+```
+3. 添加初始化数据文件
+- 建表脚本：schema.sql
+```
+CREATE TABLE `blog` (
+  `id` int AUTO_INCREMENT NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+```
+- 导入数据脚本：data.sql
+```
+insert into blog(id,title) values(1,'花生皮编程博客');
+```
+4. 启动类：HspApplication
+```
+@MapperScan({"cn.hsp.blog"})
+@SpringBootApplication
+public class HspApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(HspApplication.class, args);
+	}
+
+}
+```
+5. Controller类：BlogController
+```
+@RestController
+@RequestMapping("/blog")
+public class BlogController {
+
+    @Autowired
+    private BlogMapper blogMapper;
+
+    @GetMapping(value="/query")
+    public List<Blog> query()
+    {
+        return blogMapper.query();
+    }
+}
+```
+6. Mapper类：BlogMapper
+```
+@Repository
+public interface BlogMapper {
+    @Select(value = "select * from blog")
+    List<Blog> query();
+}
+```
+7. 数据bean：Blog
+```
+@Data
+public class Blog {
+    private int id;
+    private String title;
+}
+```
+# 工程截图
+![](https://img-blog.csdnimg.cn/img_convert/a7cd73a9b1fe35913d4bd1a0307c6c7e.png)
+
+# 运行
+运行HspApplication即可
+# 效果
+![](https://img-blog.csdnimg.cn/img_convert/2e0aca90e97ac33f55bc02f2f78a9c15.png)
 
 
-# 运行说明
-1、运行HspApplication  
-2、打开浏览器访问http://localhost:8080/blog/query  
-页面会显示:`[{"id":1,"title":"花生皮编程博客"}]`
-表示能正常从数据库中读取数据。
+# 完整源代码
+https://gitee.com/hspbc/springboot_memdb.git
 
 
 # 关于我
 厦门大学计算机专业|华为八年高级工程师  
 十年软件开发经验，5年编程培训教学经验  
 目前从事编程教学，软件开发指导，软件类毕业设计指导。  
-所有编程资料及开源项目见[https://juejin.cn/post/7002792005688360968](https://juejin.cn/post/7002792005688360968)
+所有编程资料及开源项目见[https://cxyxy.blog.csdn.net/article/details/120405881](https://cxyxy.blog.csdn.net/article/details/120405881)
+
+# 集成内存数据库系列
+ [SpringBoot集成内存数据库H2](https://cxyxy.blog.csdn.net/article/details/120148641)  
+ [SpringBoot集成内存数据库Derby](https://cxyxy.blog.csdn.net/article/details/120148643)  
+ [SpringBoot集成内存数据库hsqldb](https://cxyxy.blog.csdn.net/article/details/120148646)  
+ [SpringBoot集成内存数据库Sqlite](https://cxyxy.blog.csdn.net/article/details/120148647)
