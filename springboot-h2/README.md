@@ -100,10 +100,10 @@ https://gitee.com/hspbc/springboot_memdb.git
 厦门大学计算机专业|华为八年高级工程师  
 十年软件开发经验，5年编程培训教学经验  
 目前从事编程教学，软件开发指导，软件类毕业设计指导。  
-所有编程资料及开源项目见[https://juejin.cn/post/7002792005688360968](https://juejin.cn/post/7002792005688360968)
+所有编程资料及开源项目见[https://cxyxy.blog.csdn.net/article/details/120405881](https://cxyxy.blog.csdn.net/article/details/120405881)
 
 # 集成内存数据库系列
- [SpringBoot集成内存数据库H2](https://blog.csdn.net/yinxing2008/article/details/120148641?spm=1001.2014.3001.5501)
- [SpringBoot集成内存数据库Derby](https://blog.csdn.net/yinxing2008/article/details/120148643)
- [SpringBoot集成内存数据库hsqldb](https://blog.csdn.net/yinxing2008/article/details/120148646?spm=1001.2014.3001.5501)
- [SpringBoot集成内存数据库Sqlite](https://blog.csdn.net/yinxing2008/article/details/120148647)
+ [SpringBoot集成内存数据库H2](https://cxyxy.blog.csdn.net/article/details/120148641)  
+ [SpringBoot集成内存数据库Derby](https://cxyxy.blog.csdn.net/article/details/120148643)  
+ [SpringBoot集成内存数据库hsqldb](https://cxyxy.blog.csdn.net/article/details/120148646)  
+ [SpringBoot集成内存数据库Sqlite](https://cxyxy.blog.csdn.net/article/details/120148647)
